@@ -1,56 +1,48 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
-import Itclogo from "../../img/ITC_logo.jpg";
-import { LogIn, LogOut, LayoutDashboard } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import logo from "../../img/ITC_logo.jpg";
+import { LayoutDashboard, LogOut } from "lucide-react";
+
 const Navbar = () => {
-  const session = false;
-  const { divisionName} = useParams()
   const navigate = useNavigate();
-  
-  const handleChange = () => {
-    // window.location.reload();
-    navigate("/");
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    localStorage.removeItem("name");
+    navigate("/login");
   };
+
   return (
-    <nav className="bg-blue-200 shadow-md mx-6 my-3 rounded-lg px-6 py-4 flex items-center justify-between sticky top-0 z-50 transition-all duration-300  hover:scale-[1.01] hover:shadow-lg ">
-      {/* Left Section: Logo + Brand */}
-      <div className="flex items-center space-x-3">
+    <nav className="w-full bg-blue-100 px-6 py-3 flex items-center justify-between">
+
+      {/* Left — circular logo + ITC text */}
+      <Link to="/" className="flex items-center gap-2">
         <img
-          src={Itclogo}
+          src={logo}
           alt="ITC Logo"
-          className="w-10 h-10 rounded-full border border-gray-200"
+          className="h-10 w-10 object-cover rounded-full border border-blue-200"
         />
-        <h1 className="text-2xl font-bold text-blue-600 tracking-wide">ITC</h1>
-      </div>
+        <span className="text-xl font-extrabold text-blue-700">ITC</span>
+      </Link>
 
-      {/* Right Section: Links */}
-      <div className="flex items-center space-x-6 text-gray-700 font-medium">
-  {   divisionName &&   <Link
-          to="/"
-          className="flex items-center gap-2 hover:text-blue-600 transition-all duration-200"
-          onClick={handleChange}
-        >
-          <LayoutDashboard size={20} />
-          Dashboard
-        </Link>}
-        {session && (
-          <Link
-            to="/login"
-            className="flex items-center gap-2 hover:text-blue-600 transition-all duration-200"
-          >
-            <LogIn size={20} />
-            Login
-          </Link>
-        )}
-
+      {/* Right — Dashboard + Logout only */}
+      <div className="flex items-center gap-6">
         <Link
-          to="/logout"
-          className="flex items-center gap-2 hover:text-blue-600 transition-all duration-200"
+          to="/"
+          className="flex items-center gap-1 text-sm font-semibold text-gray-600 hover:text-blue-700 transition-colors"
         >
-          <LogOut size={20} />
-          Logout
+          <LayoutDashboard size={16} />
+          Dashboard
         </Link>
+
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-1 text-sm font-semibold text-gray-600 hover:text-red-500 transition-colors"
+        >
+          <LogOut size={16} />
+          Logout
+        </button>
       </div>
     </nav>
   );
