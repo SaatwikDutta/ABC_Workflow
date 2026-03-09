@@ -12,13 +12,13 @@ Base.metadata.create_all(bind=engine)
 
 password_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-# ── admin  details ─────────────────────────────────────────────────
+# ── admin  credentials ─────────────────────
 ADMIN_NAME        = "Neil"
 ADMIN_EMAIL       = "TIC@company.com"
 ADMIN_EMPLOYEE_ID = "EMP002"
 ADMIN_PASSWORD    = "Password@123"
 ADMIN_DIVISION    = "Corporate"
-# ─────────────────────────────────────────────────────────────────────────────
+
 
 db = sessionLocal()
 

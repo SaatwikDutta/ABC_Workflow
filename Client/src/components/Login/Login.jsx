@@ -78,7 +78,7 @@ const Login = () => {
               name="identifier"
               value={form.identifier}
               onChange={handleChange}
-              placeholder="me@company.com or EMP001"
+              placeholder="Enter your email or employee ID"
               required
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 text-sm"
             />
