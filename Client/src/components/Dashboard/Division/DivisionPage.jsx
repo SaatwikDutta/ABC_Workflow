@@ -50,16 +50,18 @@ const DivisionPage = () => {
   const visibleCards = cards.filter(c => !c.adminOnly || role === "admin");
 
   return (
-    <div className="grid grid-cols-2 justify-center">
-      <div className="min-h-screen">
-        <Sidebar/>
-      </div>
-        <div className="w-full min-h-screen bg-gray-50 p-2">
+    <div className="flex min-h-screen">
+      {role === "admin" && (
+        <div className="flex-shrink-0">
+          <Sidebar/>
+        </div>
+      )}
+      <div className="flex-1 min-h-screen bg-gray-50 p-2 flex flex-col items-center justify-start">
         <div className="text-center mb-10">
           <h1 className="text-2xl font-bold text-gray-700 uppercase tracking-widest">{divisionName}</h1>
           <div className="mx-auto mt-3 h-1 w-12 rounded-full bg-indigo-500" />
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-5 max-w-3xl mx-auto">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 w-full max-w-5xl mx-auto px-6">
           {visibleCards.map((card, index) => (
             <Link to={card.path} key={index}>
               <div className="bg-white rounded-xl shadow-sm hover:shadow-md border border-gray-100 p-6 flex flex-col items-center gap-3 cursor-pointer hover:-translate-y-1 transition-all duration-200">
