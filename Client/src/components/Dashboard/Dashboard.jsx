@@ -53,105 +53,101 @@ const MasterPanel = () => {
   useEffect(() => {
     const headers = { Authorization: `Bearer ${token}` };
 
-    fetch(`${API}/entitlement/levels`, { headers })
-      .then(r => r.json())
-      .then(data => setLevels(Array.isArray(data) ? data : []))
-      .catch(() => {});
+    // fetch(`${API}/entitlement/levels`, { headers })
+    //   .then(r => r.json())
+    //   .then(data => setLevels(Array.isArray(data) ? data : []))
+    //   .catch(() => {});
 
-    fetch(`${API}/entitlement/grades`, { headers })
-      .then(r => r.json())
-      .then(data => setGrades(Array.isArray(data) ? data : []))
-      .catch(() => {});
+    // fetch(`${API}/entitlement/grades`, { headers })
+    //   .then(r => r.json())
+    //   .then(data => setGrades(Array.isArray(data) ? data : []))
+    //   .catch(() => {});
   }, []);  // [] means "run once on mount, not on every render"
 
 
   return (
-    <div className="w-64 shrink-0 bg-white border-r border-gray-100 shadow-sm px-4 py-6 flex flex-col gap-6 overflow-y-auto">
-      <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Master Data</p>
+    // <div className="w-64 shrink-0 bg-white border-r border-gray-100 shadow-sm px-4 py-6 flex flex-col gap-6 overflow-y-auto">
+    //   <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Master Data</p>
 
-      {/* ── Levels ── */}
-      <div>
-        <p className="text-sm font-bold text-gray-600 mb-2">Levels</p>
+    //   {/* ── Levels ── */}
+    //   <div>
+    //     <p className="text-sm font-bold text-gray-600 mb-2">Levels</p>
 
-        {levels.length === 0 && (
-          <p className="text-xs text-gray-400">add the functionality bro</p>
-        )}
+    //       <p className="text-xs text-gray-400">add the functionality</p>
 
-        {levels.map(lvl => (
-          <div key={lvl.id} className="mb-2">
-            {editingLevel?.id === lvl.id ? (
-              // ── Edit mode: show input + save/cancel buttons ──
-              // editingLevel.id === lvl.id means THIS row is being edited
-              <div className="flex gap-1">
-                <input
-                  value={newLevelName}
-                  onChange={e => setNewLevelName(e.target.value)}
-                  className="flex-1 text-xs p-1 border border-purple-300 rounded focus:outline-none"
-                  autoFocus
-                />
-                <button onClick={saveLevel} className="text-xs px-2 py-1 bg-purple-600 text-white rounded hover:bg-purple-800">✓</button>
-                <button onClick={() => { setEditingLevel(null); setNewLevelName(""); }} className="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded hover:bg-gray-200">✕</button>
-              </div>
-            ) : (
-              // ── View mode: show name + edit button ──
-              <div className="flex items-center justify-between px-2 py-1 rounded hover:bg-gray-50">
-                <span className="text-sm text-gray-700">{lvl.level_name}</span>
-                <button
-                  onClick={() => { setEditingLevel(lvl); setNewLevelName(lvl.level_name); setLevelMsg(null); }}
-                  className="text-xs text-purple-500 hover:text-purple-700"
-                >✏</button>
-              </div>
-            )}
-          </div>
-        ))}
+    //     {levels.map(lvl => (
+    //       <div key={lvl.id} className="mb-2">
+    //         {editingLevel?.id === lvl.id ? (
+    //           // ── Edit mode: show input + save/cancel buttons ──
+    //           // editingLevel.id === lvl.id means THIS row is being edited
+    //           <div className="flex gap-1">
+    //             <input
+    //               value={newLevelName}
+    //               onChange={e => setNewLevelName(e.target.value)}
+    //               className="flex-1 text-xs p-1 border border-purple-300 rounded focus:outline-none"
+    //               autoFocus
+    //             />
+    //             <button onClick={saveLevel} className="text-xs px-2 py-1 bg-purple-600 text-white rounded hover:bg-purple-800">✓</button>
+    //             <button onClick={() => { setEditingLevel(null); setNewLevelName(""); }} className="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded hover:bg-gray-200">✕</button>
+    //           </div>
+    //         ) : (
+    //           // ── View mode: show name + edit button ──
+    //           <div className="flex items-center justify-between px-2 py-1 rounded hover:bg-gray-50">
+    //             <span className="text-sm text-gray-700">{lvl.level_name}</span>
+    //             <button
+    //               onClick={() => { setEditingLevel(lvl); setNewLevelName(lvl.level_name); setLevelMsg(null); }}
+    //               className="text-xs text-purple-500 hover:text-purple-700"
+    //             >✏</button>
+    //           </div>
+    //         )}
+    //       </div>
+    //     ))}
 
-        {levelMsg && (
-          <p className={`text-xs mt-1 ${levelMsg.type === "success" ? "text-green-600" : "text-red-500"}`}>
-            {levelMsg.text}
-          </p>
-        )}
-      </div>
+    //     {levelMsg && (
+    //       <p className={`text-xs mt-1 ${levelMsg.type === "success" ? "text-green-600" : "text-red-500"}`}>
+    //         {levelMsg.text}
+    //       </p>
+    //     )}
+    //   </div>
 
-      {/* ── Grades ── */}
-      <div>
-        <p className="text-sm font-bold text-gray-600 mb-2">Grades</p>
+    //   {/* ── Grades ── */}
+    //   <div>
+    //     <p className="text-sm font-bold text-gray-600 mb-2">Grades</p>
+    //       <p className="text-xs text-gray-400">add the functionality</p>
 
-        {grades.length === 0 && (
-          <p className="text-xs text-gray-400">add the functionality bro</p>
-        )}
+    //     {grades.map(grd => (
+    //       <div key={grd.id} className="mb-2">
+    //         {editingGrade?.id === grd.id ? (
+    //           <div className="flex gap-1">
+    //             <input
+    //               value={newGradeName}
+    //               onChange={e => setNewGradeName(e.target.value)}
+    //               className="flex-1 text-xs p-1 border border-purple-300 rounded focus:outline-none"
+    //               autoFocus
+    //             />
+    //             <button onClick={saveGrade} className="text-xs px-2 py-1 bg-purple-600 text-white rounded hover:bg-purple-800">✓</button>
+    //             <button onClick={() => { setEditingGrade(null); setNewGradeName(""); }} className="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded hover:bg-gray-200">✕</button>
+    //           </div>
+    //         ) : (
+    //           <div className="flex items-center justify-between px-2 py-1 rounded hover:bg-gray-50">
+    //             <span className="text-sm text-gray-700">{grd.grade_name}</span>
+    //             <button
+    //               onClick={() => { setEditingGrade(grd); setNewGradeName(grd.grade_name); setGradeMsg(null); }}
+    //               className="text-xs text-purple-500 hover:text-purple-700"
+    //             >✏</button>
+    //           </div>
+    //         )}
+    //       </div>
+    //     ))}
 
-        {grades.map(grd => (
-          <div key={grd.id} className="mb-2">
-            {editingGrade?.id === grd.id ? (
-              <div className="flex gap-1">
-                <input
-                  value={newGradeName}
-                  onChange={e => setNewGradeName(e.target.value)}
-                  className="flex-1 text-xs p-1 border border-purple-300 rounded focus:outline-none"
-                  autoFocus
-                />
-                <button onClick={saveGrade} className="text-xs px-2 py-1 bg-purple-600 text-white rounded hover:bg-purple-800">✓</button>
-                <button onClick={() => { setEditingGrade(null); setNewGradeName(""); }} className="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded hover:bg-gray-200">✕</button>
-              </div>
-            ) : (
-              <div className="flex items-center justify-between px-2 py-1 rounded hover:bg-gray-50">
-                <span className="text-sm text-gray-700">{grd.grade_name}</span>
-                <button
-                  onClick={() => { setEditingGrade(grd); setNewGradeName(grd.grade_name); setGradeMsg(null); }}
-                  className="text-xs text-purple-500 hover:text-purple-700"
-                >✏</button>
-              </div>
-            )}
-          </div>
-        ))}
-
-        {gradeMsg && (
-          <p className={`text-xs mt-1 ${gradeMsg.type === "success" ? "text-green-600" : "text-red-500"}`}>
-            {gradeMsg.text}
-          </p>
-        )}
-      </div>
-    </div>
+    //     {gradeMsg && (
+    //       <p className={`text-xs mt-1 ${gradeMsg.type === "success" ? "text-green-600" : "text-red-500"}`}>
+    //         {gradeMsg.text}
+    //       </p>
+    //     )}
+    //   </div>
+    // </div>
+    <></>
   );
 };
 
