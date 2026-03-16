@@ -1,48 +1,44 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 
-export default function HomePage() {
-  const [divisions, setDivisions] = useState([]);
+const ENTITLEMENT_TYPES = [
+  { key: "sampling",         label: "Sampling"          },
+  { key: "mobile-internet",  label: "Mobile / Internet"  },
+];
 
-  const fetchDivisions = async () => {
-    try {
-      const res = await fetch("https://mission-happay.vercel.app/divisions");
-      const data = await res.json();
-      setDivisions(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchDivisions();
-  }, []);
+export default function Entitlement() {
+  const { divisionName } = useParams();
+  const navigate         = useNavigate();
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-100 to-white p-10">
-      <h1 className="text-4xl font-bold text-center mb-10 text-purple-700 drop-shadow-md">
-        Division Dashboard
+      <h1 className="text-4xl font-bold text-center mb-2 text-purple-700 drop-shadow-md">
+        Entitlements
       </h1>
+      <p className="text-center text-gray-500 mb-10">{divisionName}</p>
 
       <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {divisions.map((div) => (
-          <Card key={div.id} className="shadow-lg rounded-2xl hover:scale-[1.02] transition-all cursor-pointer border border-purple-200">
+        {ENTITLEMENT_TYPES.map((type) => (
+          <Card
+            key={type.key}
+            onClick={() => navigate(`/${divisionName}/entitlement/${type.key}`)}
+            className="shadow-lg rounded-2xl hover:scale-[1.02] transition-all cursor-pointer border border-purple-200"
+          >
             <CardContent className="p-6 text-center">
-              <h2 className="text-xl font-semibold text-purple-700">{div.name}</h2>
-              <p className="text-sm text-gray-500 mt-2">Division ID: {div.id}</p>
+              <h2 className="text-xl font-semibold text-purple-700">{type.label}</h2>
             </CardContent>
           </Card>
         ))}
       </div>
 
-      <div className="mt-10 flex justify-center">
-        <Button
-          onClick={fetchDivisions}
-          className="px-6 py-3 rounded-xl text-lg shadow-md hover:scale-105 transition-all"
+      <div className="flex justify-end max-w-4xl mx-auto mt-8">
+        <button
+          onClick={() => navigate(`/${divisionName}`)}
+          className="bg-purple-500 rounded px-5 py-3 font-bold text-white hover:-translate-y-1 transition-all duration-200"
         >
-          Refresh
-        </Button>
+          ← Back
+        </button>
       </div>
     </div>
   );

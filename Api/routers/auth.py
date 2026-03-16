@@ -33,9 +33,9 @@ def create_token(user_id:int) -> str:
 @router.post('/register', response_model=UserResponse)
 def register(data: UserCreate, db: Session= Depends(get_db)):
     if db.query(User).filter(User.email==data.email).first():
-        raise HTTPException(status=404, detail='Employee with this email ID already exists')
+        raise HTTPException(status_code=400, detail='Employee with this email ID already exists')
     if db.query(User).filter(User.employee_id==data.employee_id).first():
-        raise HTTPException(status=404, detail='Employee with this employee ID already exists')
+        raise HTTPException(status_code=400, detail='Employee with this employee ID already exists')
     
     new_user=User(
         name=data.name,
@@ -119,7 +119,7 @@ def get_user(db:Session = Depends(get_db), _:User = Depends(require_admin)):
 def delete_user(employee_id: str,db: Session = Depends(get_db),_: User = Depends(require_admin)):
     user = db.query(User).filter(User.employee_id == employee_id).first()
     if not user:
-        raise HTTPException(status_code=404, detail="User not found.")
+        raise HTTPException(status_code=400, detail="User not found.")
     db.delete(user)
     db.commit()
     return {"message": f"User {employee_id} deleted."}
